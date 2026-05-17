@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation — Create</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --gold: #C9A84C; --gold-light: #E8D5A3; --gold-dark: #8B6914;
+  --cream: #FAF6EE; --rose: #C4737A; --rose-light: #E8B4B8;
+  --deep: #1A0F0A; --white: #FFFDF8;
+}
+html, body { width:100%; min-height:100%; background:var(--deep); font-family:'Cormorant Garamond',serif; color:var(--cream); }
+
+/* PARTICLES */
+#particles { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.petal { position:absolute; opacity:0; animation:fall linear infinite; }
+@keyframes fall {
+  0%   { transform:translateY(-20px) rotate(0deg); opacity:0; }
+  10%  { opacity:0.6; }
+  90%  { opacity:0.4; }
+  100% { transform:translateY(110vh) rotate(720deg) translateX(50px); opacity:0; }
+}
+
+/* LOADING */
+#loading { position:fixed; inset:0; background:var(--deep); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; transition:opacity 0.8s; }
+.load-ring { width:64px; height:64px; border-radius:50%; border:2px solid transparent; border-top-color:var(--gold); border-right-color:rgba(201,168,76,0.3); animation:spin 1.2s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.load-text { font-family:'Cinzel Decorative',serif; font-size:0.58rem; letter-spacing:0.4em; color:var(--gold); opacity:0.7; animation:blink 1.5s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:0.3} 50%{opacity:0.9} }
+
+/* MAIN WRAPPER */
+#app { position:relative; z-index:1; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 16px; }
+
+/* COVER */
+#cover { position:fixed; inset:0; z-index:50; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; transition:opacity 0.7s, transform 0.7s; cursor:pointer; }
+.env-wrap { width:min(380px,88vw); height:min(520px,80vh); animation:floatCard 4s ease-in-out infinite; filter:drop-shadow(0 30px 70px rgba(201,168,76,0.35)); transition:filter 0.4s; }
+.env-wrap:hover { filter:drop-shadow(0 50px 110px rgba(201,168,76,0.6)); animation-play-state:paused; }
+@keyframes floatCard { 0%,100%{transform:rotateX(2deg) rotateY(-3deg) translateY(0)} 50%{transform:rotateX(-2deg) rotateY(3deg) translateY(-16px)} }
+.env-body { width:100%; height:100%; background:linear-gradient(155deg,#2a1810,#1a0f0a 40%,#0d0705); border-radius:14px; border:1px solid rgba(201,168,76,0.4); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 28px; position:relative; overflow:hidden; }
+.env-body::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 30% 20%,rgba(201,168,76,0.1),transparent 60%),radial-gradient(ellipse at 75% 80%,rgba(196,115,122,0.08),transparent 55%); }
+.env-body::after { content:''; position:absolute; inset:9px; border:1px solid rgba(201,168,76,0.18); border-radius:8px; pointer-events:none; }
+.co { position:absolute; width:52px; height:52px; opacity:0.55; }
+.co svg { width:100%; height:100%; }
+.co.tl{top:10px;left:10px} .co.tr{top:10px;right:10px;transform:scaleX(-1)} .co.bl{bottom:10px;left:10px;transform:scaleY(-1)} .co.br{bottom:10px;right:10px;transform:scale(-1)}
+.env-heart { font-size:3.8rem; color:var(--gold); line-height:1; text-shadow:0 0 40px rgba(201,168,76,0.7),0 0 80px rgba(201,168,76,0.3); animation:pulse 3s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{text-shadow:0 0 30px rgba(201,168,76,0.5),0 0 60px rgba(201,168,76,0.2)} 50%{text-shadow:0 0 60px rgba(201,168,76,1),0 0 120px rgba(201,168,76,0.5)} }
+.env-div { width:110px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:18px 0; }
+.env-label { font-family:'Cinzel Decorative',serif; font-size:0.6rem; letter-spacing:0.38em; text-transform:uppercase; color:var(--gold-light); }
+.env-sub { font-style:italic; font-size:1.25rem; color:var(--cream); opacity:0.7; margin-top:8px; }
+.env-cta { margin-top:28px; font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); animation:blink 2s ease-in-out infinite; }
+.cover-caption { font-family:'Cinzel Decorative',serif; font-size:1.6rem; color:var(--gold); text-align:center; margin-top:24px; text-shadow:0 2px 20px rgba(201,168,76,0.4); }
+.cover-sub { font-style:italic; font-size:1rem; color:var(--cream); opacity:0.65; margin-top:6px; }
+
+/* FORM CARD */
+.card { background:linear-gradient(155deg,rgba(42,24,16,0.97),rgba(26,15,10,0.99)); border:1px solid rgba(201,168,76,0.35); border-radius:18px; width:min(520px,94vw); padding:52px 46px; position:relative; box-shadow:0 40px 100px rgba(0,0,0,0.7),inset 0 1px 0 rgba(201,168,76,0.2); opacity:0; transform:translateY(40px); transition:opacity 0.8s,transform 0.8s; }
+.card.show { opacity:1; transform:translateY(0); }
+.card::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 25% 10%,rgba(201,168,76,0.07),transparent 55%); border-radius:18px; pointer-events:none; }
+.card-border { position:absolute; inset:11px; border:1px solid rgba(201,168,76,0.12); border-radius:12px; pointer-events:none; }
+.step-tag { font-family:'Cinzel Decorative',serif; font-size:0.55rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--gold); opacity:0.65; text-align:center; margin-bottom:14px; }
+.card-title { font-family:'Cinzel Decorative',serif; font-size:1.6rem; color:var(--gold); text-align:center; line-height:1.3; text-shadow:0 0 30px rgba(201,168,76,0.35); }
+.divider { display:flex; align-items:center; gap:12px; margin:22px 0; }
+.divider span { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5),transparent); }
+.divider em { color:var(--gold); font-style:normal; font-size:0.75rem; }
+.row { margin-bottom:20px; }
+.row.split { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.row.split .row { margin-bottom:0; }
+label { display:block; font-family:'Cinzel Decorative',serif; font-size:0.52rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--gold); opacity:0.8; margin-bottom:8px; }
+input, textarea, select {
+  width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(201,168,76,0.28);
+  border-radius:8px; padding:13px 16px; color:var(--cream);
+  font-family:'Cormorant Garamond',serif; font-size:1.05rem; outline:none;
+  transition:border-color 0.3s,box-shadow 0.3s,background 0.3s;
+}
+input:focus, textarea:focus { border-color:var(--gold); background:rgba(201,168,76,0.07); box-shadow:0 0 0 3px rgba(201,168,76,0.13); }
+input::placeholder, textarea::placeholder { color:rgba(250,246,238,0.22); font-style:italic; }
+input[type="date"], input[type="time"] { color-scheme:dark; }
+textarea { resize:none; height:84px; line-height:1.6; }
+
+.btn-gold { width:100%; padding:16px; background:linear-gradient(135deg,var(--gold-dark),var(--gold),var(--gold-dark)); background-size:200%; border:none; border-radius:9px; color:var(--deep); font-family:'Cinzel Decorative',serif; font-size:0.72rem; letter-spacing:0.28em; text-transform:uppercase; cursor:pointer; transition:all 0.4s; position:relative; overflow:hidden; margin-top:8px; }
+.btn-gold::before { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.28),transparent); transform:translateX(-100%); transition:transform 0.5s; }
+.btn-gold:hover::before { transform:translateX(100%); }
+.btn-gold:hover { box-shadow:0 8px 40px rgba(201,168,76,0.5); transform:translateY(-2px); }
+
+/* SUCCESS PANEL */
+#success { display:none; margin-top:20px; background:rgba(201,168,76,0.08); border:1px solid rgba(201,168,76,0.3); border-radius:12px; padding:24px; text-align:center; }
+.success-icon { font-size:2rem; margin-bottom:10px; }
+.success-msg { font-family:'Cinzel Decorative',serif; font-size:0.65rem; letter-spacing:0.3em; color:var(--gold); text-transform:uppercase; margin-bottom:6px; }
+.success-sub { font-style:italic; color:var(--cream); opacity:0.65; font-size:0.95rem; margin-bottom:18px; }
+.link-box { background:rgba(0,0,0,0.3); border:1px dashed rgba(201,168,76,0.4); border-radius:8px; padding:12px 14px; font-size:0.8rem; color:var(--gold-light); word-break:break-all; margin-bottom:16px; letter-spacing:0.03em; cursor:pointer; transition:background 0.3s; }
+.link-box:hover { background:rgba(201,168,76,0.1); }
+.btn-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.btn-wa { display:flex; align-items:center; gap:10px; padding:12px 28px; background:#25D366; border:none; border-radius:9px; color:#fff; font-family:'Cinzel Decorative',serif; font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; transition:all 0.3s; text-decoration:none; }
+.btn-wa:hover { background:#1ebe5d; transform:translateY(-2px); box-shadow:0 8px 30px rgba(37,211,102,0.4); }
+.btn-open { padding:12px 24px; background:transparent; border:1px solid rgba(201,168,76,0.45); border-radius:9px; color:var(--gold-light); font-family:'Cinzel Decorative',serif; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; transition:all 0.3s; text-decoration:none; }
+.btn-open:hover { background:rgba(201,168,76,0.1); border-color:var(--gold); }
+
+::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.3); border-radius:2px; }
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="load-ring"></div>
+  <div class="load-text">Preparing Your Studio</div>
+</div>
+<div id="particles"></div>
+
+<!-- COVER -->
+<div id="cover" onclick="openEditor()">
+  <div class="env-wrap">
+    <div class="env-body">
+      <div class="co tl"><svg viewBox="0 0 52 52" fill="none"><path d="M2 2L2 26M2 2L26 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="2" cy="2" r="2.5" fill="#C9A84C" opacity="0.8"/></svg></div>
+      <div class="co tr"><svg viewBox="0 0 52 52" fill="none"><path d="M2 2L2 26M2 2L26 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="2" cy="2" r="2.5" fill="#C9A84C" opacity="0.8"/></svg></div>
+      <div class="co bl"><svg viewBox="0 0 52 52" fill="none"><path d="M2 2L2 26M2 2L26 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="2" cy="2" r="2.5" fill="#C9A84C" opacity="0.8"/></svg></div>
+      <div class="co br"><svg viewBox="0 0 52 52" fill="none"><path d="M2 2L2 26M2 2L26 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="2" cy="2" r="2.5" fill="#C9A84C" opacity="0.8"/></svg></div>
+      <div class="env-label">Wedding Invitation</div>
+      <div class="env-div"></div>
+      <div class="env-heart">♡</div>
+      <div class="env-div"></div>
+      <div class="env-sub">Design Your Invitation</div>
+      <div class="env-cta">✦ Tap to Begin ✦</div>
+    </div>
+  </div>
+  <div class="cover-caption">Create &amp; Share</div>
+  <div class="cover-sub">Fill in details — share the link with guests</div>
+</div>
+
+<!-- EDITOR -->
+<div id="app">
+  <div class="card" id="editorCard">
+    <div class="card-border"></div>
+    <div class="step-tag">Wedding Invitation Creator</div>
+    <div class="card-title">Enter Details</div>
+    <div class="divider"><span></span><em>✦</em><span></span></div>
+
+    <div class="row">
+      <label>Groom's Full Name</label>
+      <input id="groomName" type="text" placeholder="e.g. Muhammad Aryan Khan" />
+    </div>
+    <div class="row">
+      <label>Bride's Full Name</label>
+      <input id="brideName" type="text" placeholder="e.g. Ayesha Noor Sultana" />
+    </div>
+    <div class="row split">
+      <div class="row"><label>Wedding Date</label><input id="weddingDate" type="date" /></div>
+      <div class="row"><label>Ceremony Time</label><input id="weddingTime" type="time" /></div>
+    </div>
+    <div class="row" style="margin-top:4px">
+      <label>Venue / Hall Name</label>
+      <input id="venueName" type="text" placeholder="e.g. Royal Garden Banquet" />
+    </div>
+    <div class="row">
+      <label>Full Address</label>
+      <textarea id="venueAddr" placeholder="Street, City, State, Country…"></textarea>
+    </div>
+    <div class="row split">
+      <div class="row"><label>Contact Number</label><input id="phone1" type="tel" placeholder="+91 00000 00000" /></div>
+      <div class="row"><label>Alt. Contact</label><input id="phone2" type="tel" placeholder="+91 00000 00000" /></div>
+    </div>
+    <div class="row" style="margin-top:4px">
+      <label>Personal Message / Blessing</label>
+      <textarea id="blessing" placeholder="Write a heartfelt message for your guests…"></textarea>
+    </div>
+
+    <div class="divider"><span></span><em>✦</em><span></span></div>
+    <button class="btn-gold" onclick="createInvitation()">Generate Invitation &amp; Share Link ✦</button>
+
+    <!-- SUCCESS -->
+    <div id="success">
+      <div class="success-icon">✉️</div>
+      <div class="success-msg">Invitation Ready!</div>
+      <div class="success-sub">Share this link with your guests. They can only view — not edit.</div>
+      <div class="link-box" id="shareLink" onclick="copyLink()" title="Click to copy"></div>
+      <div class="btn-row">
+        <a id="waBtn" class="btn-wa" href="#" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Share on WhatsApp
+        </a>
+        <a id="openBtn" class="btn-open" href="#" target="_blank">Open Invitation ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* PARTICLES */
+(function(){
+  const c=document.getElementById('particles');
+  const cols=['#C9A84C','#E8D5A3','#C4737A','#E8B4B8','#8B6914'];
+  for(let i=0;i<28;i++){
+    const p=document.createElement('div');
+    p.className='petal';
+    p.style.cssText=`left:${Math.random()*100}%;background:${cols[i%cols.length]};width:${4+Math.random()*7}px;height:${4+Math.random()*7}px;animation-duration:${9+Math.random()*13}s;animation-delay:${-Math.random()*22}s;border-radius:${Math.random()>.5?'50% 0':'50%'};`;
+    c.appendChild(p);
+  }
+})();
+
+/* LOADING */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const l=document.getElementById('loading');
+    l.style.opacity='0';
+    setTimeout(()=>l.style.display='none',800);
+  },1000);
+});
+
+/* COVER OPEN */
+function openEditor(){
+  const cover=document.getElementById('cover');
+  cover.style.transition='opacity 0.6s,transform 0.6s';
+  cover.style.opacity='0';
+  cover.style.transform='scale(0.94)';
+  setTimeout(()=>{
+    cover.style.display='none';
+    const card=document.getElementById('editorCard');
+    card.classList.add('show');
+  },500);
+}
+
+/* GENERATE */
+function createInvitation(){
+  const data={
+    g: val('groomName','Muhammad Aryan Khan'),
+    b: val('brideName','Ayesha Noor Sultana'),
+    d: document.getElementById('weddingDate').value,
+    t: document.getElementById('weddingTime').value,
+    vn: val('venueName','Royal Garden Banquet'),
+    va: val('venueAddr','Guwahati, Assam'),
+    p1: val('phone1','+91 00000 00000'),
+    p2: document.getElementById('phone2').value.trim(),
+    msg: document.getElementById('blessing').value.trim()
+  };
+
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  // Build viewer URL — same folder, different file
+  const base = window.location.href.replace(/[^/]*$/, '');
+  const viewerURL = base + 'wedding_invitation_view.html#' + encoded;
+
+  document.getElementById('shareLink').textContent = viewerURL;
+  document.getElementById('openBtn').href = viewerURL;
+
+  const waText = encodeURIComponent(
+    `💍 *Wedding Invitation*\n\n` +
+    `*${data.g}* weds *${data.b}*\n\n` +
+    `📅 ${formatDate(data.d)}\n` +
+    `⏰ ${formatTime(data.t)}\n` +
+    `📍 ${data.vn}, ${data.va}\n` +
+    `📞 ${data.p1}\n\n` +
+    `View beautiful invitation 👇\n${viewerURL}`
+  );
+  document.getElementById('waBtn').href = `https://wa.me/?text=${waText}`;
+
+  const s=document.getElementById('success');
+  s.style.display='block';
+  s.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function val(id,fb){
+  const v=document.getElementById(id).value.trim();
+  return v||fb;
+}
+function formatDate(d){
+  if(!d) return 'Date TBD';
+  const dt=new Date(d+'T00:00:00');
+  return dt.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+}
+function formatTime(t){
+  if(!t) return 'Time TBD';
+  const[h,m]=t.split(':');
+  const hr=parseInt(h); const ampm=hr>=12?'PM':'AM';
+  return `${hr%12||12}:${m} ${ampm}`;
+}
+function copyLink(){
+  const txt=document.getElementById('shareLink').textContent;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const el=document.getElementById('shareLink');
+    el.textContent='✓ Copied to clipboard!';
+    setTimeout(()=>el.textContent=txt,2000);
+  });
+}
+
+/* 3D TILT */
+const card=document.getElementById('editorCard');
+card.addEventListener('mousemove',e=>{
+  const r=card.getBoundingClientRect();
+  const x=(e.clientX-r.left)/r.width-0.5;
+  const y=(e.clientY-r.top)/r.height-0.5;
+  card.style.transform=`perspective(1000px) rotateY(${x*5}deg) rotateX(${-y*5}deg) scale(1.01)`;
+  card.style.transition='transform 0.1s';
+});
+card.addEventListener('mouseleave',()=>{
+  card.style.transform='';
+  card.style.transition='transform 0.6s cubic-bezier(0.34,1.56,0.64,1)';
+});
+</script>
+</body>
+</html>

@@ -3,221 +3,474 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invitation</title>
-<meta name="description" content="You are cordially invited to a wedding celebration." />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<title>Hindu Wedding Invitation — Shubh Vivah</title>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Tiro+Devanagari+Hindi:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Upright:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-:root {
-  --gold:#C9A84C; --gold-light:#E8D5A3; --gold-dark:#8B6914;
-  --cream:#FAF6EE; --rose:#C4737A; --rose-light:#E8B4B8;
-  --deep:#1A0F0A;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --saffron:#FF6B00;--saffron-light:#FF9A3C;--saffron-pale:#FFE4C4;
+  --vermillion:#C8102E;--vermillion-light:#E8425A;
+  --gold:#D4A017;--gold-light:#F5D76E;--gold-bright:#FFD700;
+  --marigold:#FF8C00;--maroon:#5C0A1E;--deep:#1A0508;
+  --cream:#FFF8EE;--ivory:#FAF0DC;--rose:#FFB3BA;
 }
-html, body { width:100%; min-height:100%; background:var(--deep); font-family:'Cormorant Garamond',serif; color:var(--cream); overflow-x:hidden; }
+html,body{width:100%;min-height:100%;background:var(--deep);font-family:'Cormorant Upright',serif;color:var(--cream);overflow-x:hidden}
 
-/* PARTICLES */
-#particles { position:fixed; inset:0; pointer-events:none; z-index:0; }
-.petal { position:absolute; opacity:0; animation:fall linear infinite; }
-@keyframes fall { 0%{transform:translateY(-20px) rotate(0);opacity:0} 10%{opacity:0.6} 90%{opacity:0.4} 100%{transform:translateY(110vh) rotate(720deg) translateX(50px);opacity:0} }
+/* === ANIMATED BG === */
+#bg{position:fixed;inset:0;z-index:0;overflow:hidden}
+.bg-base{position:absolute;inset:0;background:radial-gradient(ellipse at 15% 15%,rgba(212,160,23,0.2) 0%,transparent 50%),radial-gradient(ellipse at 85% 85%,rgba(200,16,46,0.18) 0%,transparent 50%),radial-gradient(ellipse at 50% 0%,rgba(255,107,0,0.12) 0%,transparent 45%),linear-gradient(175deg,#1e060a 0%,#120305 50%,#1a0810 100%)}
+.mandala-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(1100px,150vw);height:min(1100px,150vw);opacity:0.05;animation:spinSlow 100s linear infinite}
+@keyframes spinSlow{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.mandala-bg svg{width:100%;height:100%}
 
-/* LOADING */
-#loading { position:fixed; inset:0; background:var(--deep); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; transition:opacity 0.8s; }
-.load-ring { width:64px; height:64px; border-radius:50%; border:2px solid transparent; border-top-color:var(--gold); border-right-color:rgba(201,168,76,0.3); animation:spin 1.2s linear infinite; }
-@keyframes spin { to{transform:rotate(360deg)} }
-.load-text { font-family:'Cinzel Decorative',serif; font-size:0.58rem; letter-spacing:0.4em; color:var(--gold); opacity:0.7; animation:blink 1.5s ease-in-out infinite; }
-@keyframes blink { 0%,100%{opacity:0.3} 50%{opacity:0.9} }
+/* Diyas & petals */
+.diya{position:absolute;border-radius:50%;filter:blur(1px);animation:floatDiya linear infinite}
+@keyframes floatDiya{0%{opacity:0;transform:translateY(100vh) scale(0.3)}10%{opacity:1}90%{opacity:0.8}100%{opacity:0;transform:translateY(-5vh) translateX(40px) scale(0.5)}}
+.mpetal{position:absolute;border-radius:50% 10% 50% 10%;animation:petalFall linear infinite;opacity:0}
+@keyframes petalFall{0%{transform:translateY(-20px) rotate(0) translateX(0);opacity:0}15%{opacity:0.9}85%{opacity:0.65}100%{transform:translateY(105vh) rotate(540deg) translateX(50px);opacity:0}}
 
-/* ENVELOPE COVER */
-#cover { position:fixed; inset:0; z-index:40; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:opacity 0.7s, transform 0.7s; }
-.env-wrap { width:min(360px,86vw); height:min(500px,78vh); animation:floatCard 4s ease-in-out infinite; filter:drop-shadow(0 30px 70px rgba(201,168,76,0.35)); }
-.env-wrap:hover { filter:drop-shadow(0 50px 110px rgba(201,168,76,0.6)); animation-play-state:paused; }
-@keyframes floatCard { 0%,100%{transform:rotateX(2deg) rotateY(-3deg) translateY(0)} 50%{transform:rotateX(-2deg) rotateY(3deg) translateY(-16px)} }
-.env-body { width:100%; height:100%; background:linear-gradient(155deg,#2a1810,#1a0f0a 40%,#0d0705); border-radius:14px; border:1px solid rgba(201,168,76,0.42); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:36px 24px; position:relative; overflow:hidden; }
-.env-body::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 30% 20%,rgba(201,168,76,0.1),transparent 60%),radial-gradient(ellipse at 75% 80%,rgba(196,115,122,0.08),transparent 55%); }
-.env-body::after { content:''; position:absolute; inset:9px; border:1px solid rgba(201,168,76,0.18); border-radius:9px; pointer-events:none; }
-.co { position:absolute; width:50px; height:50px; opacity:0.55; }
-.co svg { width:100%; height:100%; }
-.co.tl{top:10px;left:10px} .co.tr{top:10px;right:10px;transform:scaleX(-1)} .co.bl{bottom:10px;left:10px;transform:scaleY(-1)} .co.br{bottom:10px;right:10px;transform:scale(-1)}
-.env-to { font-family:'Cinzel Decorative',serif; font-size:0.55rem; letter-spacing:0.38em; text-transform:uppercase; color:var(--gold); opacity:0.7; margin-bottom:10px; }
-.env-names-preview { font-family:'Cinzel Decorative',serif; font-size:1.1rem; color:var(--gold); text-align:center; line-height:1.5; text-shadow:0 0 20px rgba(201,168,76,0.5); }
-.env-heart { font-size:2.8rem; color:var(--gold); line-height:1; text-shadow:0 0 40px rgba(201,168,76,0.8); animation:pulse 3s ease-in-out infinite; margin:14px 0; }
-@keyframes pulse { 0%,100%{text-shadow:0 0 30px rgba(201,168,76,0.5)} 50%{text-shadow:0 0 60px rgba(201,168,76,1),0 0 120px rgba(201,168,76,0.5)} }
-.env-div { width:100px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:14px 0; }
-.env-sub { font-style:italic; font-size:1.1rem; color:var(--cream); opacity:0.65; text-align:center; }
-.env-cta { margin-top:24px; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); animation:blink 2s ease-in-out infinite; }
-.cover-caption { font-family:'Cinzel Decorative',serif; font-size:1.4rem; color:var(--gold); text-align:center; margin-top:20px; }
-.cover-sub { font-style:italic; color:var(--cream); opacity:0.6; font-size:0.95rem; margin-top:5px; }
+/* Sparkle stars */
+.spark{position:absolute;animation:sparkle ease-in-out infinite;opacity:0}
+@keyframes sparkle{0%,100%{opacity:0;transform:scale(0.5)}50%{opacity:0.8;transform:scale(1.2)}}
 
-/* INVITATION CARD */
-#app { position:relative; z-index:1; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 16px 60px; }
-.inv { background:linear-gradient(170deg,#2d1a10 0%,#1a0e08 50%,#0e0806 100%); border:1px solid rgba(201,168,76,0.45); border-radius:20px; width:min(500px,94vw); padding:52px 44px; position:relative; box-shadow:0 0 0 1px rgba(201,168,76,0.08),0 40px 120px rgba(0,0,0,0.8),inset 0 1px 0 rgba(201,168,76,0.25); text-align:center; opacity:0; transform:rotateX(12deg) scale(0.9); animation:revealCard 1.2s cubic-bezier(0.34,1.56,0.64,1) 0.2s forwards; }
-@keyframes revealCard { to{opacity:1;transform:rotateX(0deg) scale(1)} }
-.inv::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 15% 15%,rgba(201,168,76,0.12),transparent 50%),radial-gradient(ellipse at 85% 85%,rgba(196,115,122,0.1),transparent 50%); border-radius:20px; pointer-events:none; }
-.f1 { position:absolute; inset:13px; border:1px solid rgba(201,168,76,0.2); border-radius:14px; pointer-events:none; }
-.f2 { position:absolute; inset:22px; border:1px solid rgba(201,168,76,0.08); border-radius:10px; pointer-events:none; }
+/* === LOADING === */
+#loading{position:fixed;inset:0;background:var(--deep);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity 1s}
+.load-om{font-size:5rem;color:var(--gold);animation:omGlow 2s ease-in-out infinite}
+@keyframes omGlow{0%,100%{transform:scale(1);text-shadow:0 0 30px rgba(212,160,23,0.5),0 0 60px rgba(255,107,0,0.2)}50%{transform:scale(1.2);text-shadow:0 0 80px rgba(212,160,23,1),0 0 150px rgba(255,107,0,0.6),0 0 250px rgba(212,160,23,0.3)}}
+.load-ring{width:72px;height:72px;border-radius:50%;border:2px solid transparent;border-top-color:var(--saffron);border-right-color:rgba(255,107,0,0.4);border-bottom-color:var(--gold);animation:spin 1.2s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.load-txt{font-family:'Yatra One',serif;font-size:0.85rem;letter-spacing:0.35em;color:var(--gold);animation:blinkGlow 1.5s ease-in-out infinite}
+@keyframes blinkGlow{0%,100%{opacity:0.3}50%{opacity:1;text-shadow:0 0 20px rgba(212,160,23,0.7)}}
 
-/* Animation helper */
-.reveal { opacity:0; transform:translateY(22px); animation:slideUp 0.7s ease forwards; }
-@keyframes slideUp { to{opacity:1;transform:translateY(0)} }
+/* === ENVELOPE COVER === */
+#cover{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:opacity 0.8s,transform 0.8s;padding:20px}
+.env-outer{
+  width:min(400px,90vw);height:min(560px,80vh);
+  animation:floatEnv 5s ease-in-out infinite;
+  filter:drop-shadow(0 30px 80px rgba(212,160,23,0.45)) drop-shadow(0 0 50px rgba(200,16,46,0.25));
+  transition:filter 0.4s;position:relative;
+}
+.env-outer:hover{filter:drop-shadow(0 55px 130px rgba(212,160,23,0.75)) drop-shadow(0 0 80px rgba(255,107,0,0.45));animation-play-state:paused}
+@keyframes floatEnv{0%,100%{transform:rotateX(3deg) rotateY(-4deg) translateY(0)}33%{transform:rotateX(-2deg) rotateY(3.5deg) translateY(-16px)}66%{transform:rotateX(1.5deg) rotateY(-2deg) translateY(-9px)}}
+.env-body{
+  width:100%;height:100%;
+  background:linear-gradient(155deg,#3a0c14 0%,#1e0608 45%,#290d14 100%);
+  border-radius:18px;border:1px solid rgba(212,160,23,0.55);
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:36px 26px;gap:0;
+}
+/* Gold glow orbs */
+.env-body::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,160,23,0.2) 0%,transparent 55%),radial-gradient(ellipse at 50% 100%,rgba(200,16,46,0.2) 0%,transparent 55%),radial-gradient(ellipse at 0% 50%,rgba(255,107,0,0.1) 0%,transparent 50%),radial-gradient(ellipse at 100% 50%,rgba(255,107,0,0.1) 0%,transparent 50%)}
+/* Triple frame */
+.ef1{position:absolute;inset:6px;border:1px solid rgba(212,160,23,0.45);border-radius:14px;pointer-events:none}
+.ef2{position:absolute;inset:14px;border:1px solid rgba(212,160,23,0.2);border-radius:10px;pointer-events:none}
+.ef3{position:absolute;inset:22px;border:1px dashed rgba(212,160,23,0.1);border-radius:7px;pointer-events:none}
+/* Top banner */
+.env-top-banner{position:absolute;top:0;left:0;right:0;height:90px;background:linear-gradient(180deg,rgba(212,160,23,0.18),transparent);border-radius:18px 18px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:14px}
+.env-top-banner span{font-family:'Yatra One',serif;font-size:0.6rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold-light);opacity:0.75}
+.env-bottom-banner{position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(0deg,rgba(200,16,46,0.18),transparent);border-radius:0 0 18px 18px}
+/* Corner ornaments */
+.eco{position:absolute;font-size:1.8rem;opacity:0.6;line-height:1}
+.eco.tl{top:28px;left:20px;animation:ecoFloat 3s ease-in-out infinite}
+.eco.tr{top:28px;right:20px;animation:ecoFloat 3s ease-in-out infinite 0.5s}
+.eco.bl{bottom:28px;left:20px;animation:ecoFloat 3s ease-in-out infinite 1s}
+.eco.br{bottom:28px;right:20px;animation:ecoFloat 3s ease-in-out infinite 1.5s}
+@keyframes ecoFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 
-.bismillah { font-style:italic; font-size:0.95rem; color:var(--gold); opacity:0.85; letter-spacing:0.12em; margin-bottom:22px; }
-.initials { font-family:'Cinzel Decorative',serif; font-size:3.8rem; color:var(--gold); line-height:1; text-shadow:0 0 60px rgba(201,168,76,0.7),0 0 120px rgba(201,168,76,0.3); }
-.inv-and { font-style:italic; font-size:1.6rem; color:var(--rose-light); display:block; opacity:0.85; }
-.shimmer { width:100%; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:18px 0; animation:shimmer 3s ease-in-out infinite; opacity:0.55; }
-@keyframes shimmer { 0%,100%{opacity:0.3;transform:scaleX(0.6)} 50%{opacity:0.9;transform:scaleX(1)} }
-.together { font-style:italic; font-size:1rem; color:var(--cream); opacity:0.6; letter-spacing:0.07em; margin:12px 0; }
-.groom-name { font-family:'Cinzel Decorative',serif; font-size:1.6rem; color:var(--gold-light); line-height:1.2; text-shadow:0 2px 20px rgba(201,168,76,0.4); }
-.bride-name { font-family:'Cinzel Decorative',serif; font-size:1.6rem; color:var(--rose-light); line-height:1.2; }
-.conn { font-style:italic; font-size:0.9rem; color:var(--gold); opacity:0.65; margin:4px 0; }
-.name-sep { font-family:'Cinzel Decorative',serif; font-size:0.55rem; letter-spacing:0.4em; color:var(--gold); opacity:0.5; margin:6px 0; }
-.hr { display:flex; align-items:center; gap:12px; margin:20px 0; }
-.hr span { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(201,168,76,0.45),transparent); }
-.gem { width:8px; height:8px; border:1px solid var(--gold); transform:rotate(45deg); background:var(--gold-dark); flex-shrink:0; }
-.request { font-style:italic; font-size:1rem; color:var(--cream); opacity:0.62; line-height:1.75; }
-.date-section { margin:24px 0 0; }
-.section-label { font-family:'Cinzel Decorative',serif; font-size:0.52rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--gold); opacity:0.65; margin-bottom:10px; }
-.date-big { font-family:'Cinzel Decorative',serif; font-size:1.25rem; color:var(--gold); letter-spacing:0.08em; text-shadow:0 0 30px rgba(201,168,76,0.5); }
-.time-text { font-style:italic; font-size:0.95rem; color:var(--cream); opacity:0.62; margin-top:5px; }
-.venue-box { background:rgba(201,168,76,0.05); border:1px solid rgba(201,168,76,0.22); border-radius:10px; padding:18px 22px; margin:20px 0; }
-.venue-name { font-family:'Cinzel Decorative',serif; font-size:1rem; color:var(--gold-light); margin-bottom:6px; }
-.venue-addr { font-style:italic; font-size:0.92rem; color:var(--cream); opacity:0.58; line-height:1.5; }
-.contacts { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:14px 0; }
-.chip { background:rgba(196,115,122,0.1); border:1px solid rgba(196,115,122,0.32); border-radius:30px; padding:8px 18px; font-size:0.88rem; color:var(--rose-light); display:flex; align-items:center; gap:7px; }
-.chip svg { flex-shrink:0; }
-.blessing { font-style:italic; font-size:0.95rem; color:var(--cream); opacity:0.5; line-height:1.75; margin:18px 0 10px; }
-.footer-note { font-family:'Cinzel Decorative',serif; font-size:0.48rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); opacity:0.4; margin-top:24px; }
+.env-kalash{font-size:3rem;line-height:1;filter:drop-shadow(0 0 15px rgba(212,160,23,0.9));animation:omGlow 3s ease-in-out infinite;margin-bottom:6px}
+.env-om{font-family:'Yatra One',serif;font-size:1.4rem;color:var(--gold);text-shadow:0 0 20px rgba(212,160,23,0.7);letter-spacing:0.15em;margin-bottom:8px}
+.env-line{width:110px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:10px 0;position:relative}
+.env-line::before,.env-line::after{content:'◆';position:absolute;top:50%;transform:translateY(-50%);font-size:6px;color:var(--gold)}
+.env-line::before{left:22px} .env-line::after{right:22px}
+.env-heading{font-family:'Yatra One',serif;font-size:1.15rem;color:var(--gold-light);text-align:center;line-height:1.45;text-shadow:0 0 18px rgba(212,160,23,0.5);margin-bottom:6px}
+.env-names{font-family:'Playfair Display',serif;font-style:italic;font-size:1.55rem;color:var(--saffron-light);text-align:center;text-shadow:0 0 15px rgba(255,107,0,0.5);margin-bottom:4px}
+.env-sub{font-style:italic;font-size:0.95rem;color:var(--cream);opacity:0.62;letter-spacing:0.06em;margin-bottom:6px}
+.env-cta{font-family:'Yatra One',serif;font-size:0.68rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--saffron-light);animation:blinkGlow 2s ease-in-out infinite;margin-top:14px}
+.cover-lbl{font-family:'Yatra One',serif;font-size:1.5rem;color:var(--gold);text-align:center;margin-top:20px;text-shadow:0 0 20px rgba(212,160,23,0.5)}
+.cover-slbl{font-style:italic;color:var(--cream);opacity:0.6;font-size:0.95rem;margin-top:5px;letter-spacing:0.05em}
 
-/* SHARE STRIP */
-#shareStrip { position:fixed; bottom:0; left:0; right:0; z-index:50; background:rgba(15,8,5,0.95); border-top:1px solid rgba(201,168,76,0.2); backdrop-filter:blur(16px); padding:14px 20px; display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; transform:translateY(100%); animation:slideUpStrip 0.8s 1.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
-@keyframes slideUpStrip { to{transform:translateY(0)} }
-.strip-label { font-family:'Cinzel Decorative',serif; font-size:0.55rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); opacity:0.7; }
-.btn-wa { display:flex; align-items:center; gap:9px; padding:11px 24px; background:#25D366; border:none; border-radius:9px; color:#fff; font-family:'Cinzel Decorative',serif; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; transition:all 0.3s; text-decoration:none; }
-.btn-wa:hover { background:#1ebe5d; transform:translateY(-2px); box-shadow:0 8px 30px rgba(37,211,102,0.4); }
-.btn-copy { padding:11px 20px; background:transparent; border:1px solid rgba(201,168,76,0.4); border-radius:9px; color:var(--gold-light); font-family:'Cinzel Decorative',serif; font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; transition:all 0.3s; }
-.btn-copy:hover { background:rgba(201,168,76,0.12); border-color:var(--gold); }
+/* === INVITATION CARD === */
+#app{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px 14px 90px}
+.inv-wrap{
+  width:min(560px,96vw);
+  position:relative;
+  opacity:0;transform:rotateX(14deg) scale(0.88);
+  animation:revealInv 1.3s cubic-bezier(0.34,1.3,0.64,1) 0.2s forwards;
+}
+@keyframes revealInv{to{opacity:1;transform:rotateX(0) scale(1)}}
 
-/* ERROR */
-#errMsg { display:none; position:fixed; inset:0; z-index:200; background:var(--deep); flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px; gap:20px; }
-.err-icon { font-size:3rem; }
-.err-title { font-family:'Cinzel Decorative',serif; font-size:1.2rem; color:var(--gold); }
-.err-sub { font-style:italic; color:var(--cream); opacity:0.6; max-width:340px; line-height:1.7; }
+/* === FULL INVITATION CARD === */
+.inv{
+  background:linear-gradient(175deg,#2e0f16 0%,#1a0608 35%,#100304 65%,#1e0810 100%);
+  border:1px solid rgba(212,160,23,0.5);
+  border-radius:22px;
+  padding:0;
+  position:relative;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(212,160,23,0.08),0 50px 140px rgba(0,0,0,0.85),inset 0 1px 0 rgba(212,160,23,0.3),0 0 80px rgba(200,16,46,0.1);
+  text-align:center;
+}
+/* Ambient glow layers */
+.inv::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,160,23,0.15) 0%,transparent 50%),radial-gradient(ellipse at 0% 100%,rgba(255,107,0,0.1) 0%,transparent 45%),radial-gradient(ellipse at 100% 100%,rgba(200,16,46,0.1) 0%,transparent 45%);pointer-events:none;border-radius:22px}
+/* Decorative frames */
+.if1{position:absolute;inset:8px;border:1px solid rgba(212,160,23,0.3);border-radius:17px;pointer-events:none;z-index:1}
+.if2{position:absolute;inset:17px;border:1px solid rgba(212,160,23,0.12);border-radius:12px;pointer-events:none;z-index:1}
+.if3{position:absolute;inset:26px;border:1px dashed rgba(212,160,23,0.07);border-radius:8px;pointer-events:none;z-index:1}
 
-::-webkit-scrollbar { width:4px; }
-::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.3); border-radius:2px; }
+/* ── HEADER SECTION ── */
+.inv-header{
+  background:linear-gradient(180deg,rgba(212,160,23,0.22) 0%,rgba(212,160,23,0.06) 70%,transparent 100%);
+  padding:40px 40px 30px;
+  border-bottom:1px solid rgba(212,160,23,0.18);
+  position:relative;
+}
+.inv-header::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:60%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+/* Corner lotus decorations in header */
+.hlotus{position:absolute;font-size:2rem;opacity:0.4;animation:ecoFloat 4s ease-in-out infinite}
+.hlotus.tl{top:16px;left:20px} .hlotus.tr{top:16px;right:20px;animation-delay:0.7s}
+.h-om{font-size:3rem;color:var(--gold);text-shadow:0 0 40px rgba(212,160,23,0.8),0 0 80px rgba(255,107,0,0.4);display:block;margin-bottom:8px;animation:omGlow 4s ease-in-out infinite}
+.h-sub{font-family:'Yatra One',serif;font-size:0.62rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--saffron-light);opacity:0.75;display:block;margin-bottom:4px}
+.h-sanskrit{font-family:'Tiro Devanagari Hindi',serif;font-style:italic;font-size:1.1rem;color:var(--gold-light);opacity:0.85;letter-spacing:0.06em;line-height:1.5}
+.h-divider{display:flex;align-items:center;gap:12px;margin:16px auto;width:min(360px,80%)}
+.h-divider span{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(212,160,23,0.6),transparent)}
+.h-divider em{color:var(--saffron);font-style:normal;font-size:1.1rem}
+.h-ceremony{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(200,16,46,0.2),rgba(212,160,23,0.1));border:1px solid rgba(200,16,46,0.35);border-radius:30px;padding:8px 22px;margin-top:4px}
+.h-ceremony-icon{font-size:1.2rem}
+.h-ceremony-text{font-family:'Yatra One',serif;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--saffron-light)}
+
+/* ── COUPLE SECTION ── */
+.couple-section{padding:36px 40px 28px;position:relative}
+.couple-intro{font-style:italic;font-size:1.05rem;color:var(--cream);opacity:0.58;letter-spacing:0.07em;margin-bottom:28px}
+.couple-box{display:grid;grid-template-columns:1fr 80px 1fr;align-items:center;gap:16px;margin:16px 0}
+.person-side{text-align:center}
+.person-label{font-family:'Yatra One',serif;font-size:0.52rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--saffron-light);opacity:0.6;margin-bottom:8px;display:block}
+.person-name{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;line-height:1.2;text-shadow:0 2px 20px rgba(0,0,0,0.5)}
+.person-name.groom{color:var(--gold-light);text-shadow:0 2px 25px rgba(212,160,23,0.45)}
+.person-name.bride{color:var(--saffron-light);text-shadow:0 2px 25px rgba(255,107,0,0.45)}
+.person-family{font-style:italic;font-size:0.82rem;color:var(--cream);opacity:0.5;margin-top:6px;line-height:1.4;padding:0 4px}
+.couple-center{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.c-heart{font-size:2rem;animation:heartBeat 1.8s ease-in-out infinite}
+@keyframes heartBeat{0%,100%{transform:scale(1);filter:drop-shadow(0 0 4px rgba(200,16,46,0.6))}50%{transform:scale(1.25);filter:drop-shadow(0 0 14px rgba(200,16,46,0.9))}}
+.c-and{font-family:'Playfair Display',serif;font-style:italic;font-size:0.9rem;color:var(--gold);opacity:0.7}
+
+/* ── SHIMMER DIVIDER ── */
+.shimmer-div{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,160,23,0.7),rgba(255,107,0,0.5),rgba(212,160,23,0.7),transparent);margin:0;animation:shimmerAnim 3s ease-in-out infinite;position:relative}
+@keyframes shimmerAnim{0%,100%{opacity:0.4;transform:scaleX(0.7)}50%{opacity:1;transform:scaleX(1)}}
+.hr-gem{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 auto;padding:14px 0}
+.hr-gem span{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(212,160,23,0.5),transparent);max-width:160px}
+.hr-gem .diamond{width:10px;height:10px;border:1.5px solid var(--gold);transform:rotate(45deg);background:linear-gradient(135deg,var(--gold-dark,#8B6914),var(--gold))}
+.hr-gem .dot{width:5px;height:5px;border-radius:50%;background:var(--saffron);opacity:0.7}
+
+/* ── AUSPICIOUS MESSAGE ── */
+.auspicious{padding:18px 44px;background:rgba(212,160,23,0.04);border-top:1px solid rgba(212,160,23,0.1);border-bottom:1px solid rgba(212,160,23,0.1)}
+.aus-text{font-style:italic;font-size:0.98rem;color:var(--cream);opacity:0.62;line-height:1.8}
+
+/* ── DATE / MUHURAT ── */
+.date-section{padding:30px 40px 24px;background:linear-gradient(180deg,transparent,rgba(212,160,23,0.04),transparent)}
+.ds-label{font-family:'Yatra One',serif;font-size:0.55rem;letter-spacing:0.48em;text-transform:uppercase;color:var(--gold);opacity:0.65;margin-bottom:12px;display:block}
+.ds-icon{font-size:2.5rem;display:block;margin-bottom:10px;filter:drop-shadow(0 0 10px rgba(212,160,23,0.6))}
+.ds-date{font-family:'Yatra One',serif;font-size:1.5rem;color:var(--gold);letter-spacing:0.08em;text-shadow:0 0 30px rgba(212,160,23,0.55);line-height:1.2}
+.ds-time{font-style:italic;font-size:1.05rem;color:var(--saffron-light);opacity:0.8;margin-top:6px}
+.muhurat-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(200,16,46,0.12);border:1px solid rgba(200,16,46,0.3);border-radius:30px;padding:6px 18px;margin-top:12px;font-family:'Yatra One',serif;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--vermillion-light)}
+
+/* ── VENUE ── */
+.venue-section{padding:4px 40px 28px}
+.venue-card{background:linear-gradient(135deg,rgba(212,160,23,0.08),rgba(200,16,46,0.06));border:1px solid rgba(212,160,23,0.25);border-radius:14px;padding:22px 26px;position:relative;overflow:hidden}
+.venue-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(212,160,23,0.1),transparent 60%);pointer-events:none}
+.vc-icon{font-size:1.8rem;display:block;margin-bottom:10px;filter:drop-shadow(0 0 8px rgba(212,160,23,0.5))}
+.vc-label{font-family:'Yatra One',serif;font-size:0.52rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);opacity:0.65;margin-bottom:8px;display:block}
+.vc-name{font-family:'Yatra One',serif;font-size:1.15rem;color:var(--gold-light);margin-bottom:8px;text-shadow:0 0 15px rgba(212,160,23,0.3)}
+.vc-addr{font-style:italic;font-size:0.93rem;color:var(--cream);opacity:0.57;line-height:1.6}
+
+/* ── CONTACT CHIPS ── */
+.contact-section{padding:0 40px 20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.chip{display:flex;align-items:center;gap:8px;background:rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.3);border-radius:30px;padding:9px 20px;font-size:0.9rem;color:var(--saffron-light);transition:all 0.3s}
+.chip:hover{background:rgba(255,107,0,0.18);transform:translateY(-1px)}
+.chip svg{flex-shrink:0}
+
+/* ── BLESSING ── */
+.blessing-section{padding:10px 44px 20px}
+.bs-text{font-family:'Tiro Devanagari Hindi',serif;font-style:italic;font-size:0.98rem;color:var(--cream);opacity:0.55;line-height:1.85;letter-spacing:0.03em}
+
+/* ── FOOTER ── */
+.inv-footer{
+  padding:24px 40px 36px;
+  background:linear-gradient(0deg,rgba(212,160,23,0.12) 0%,transparent 100%);
+  border-top:1px solid rgba(212,160,23,0.15);
+  position:relative;
+}
+.inv-footer::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:70%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.footer-swastika{font-size:1.5rem;display:block;margin-bottom:10px;opacity:0.5;animation:omGlow 4s ease-in-out infinite}
+.footer-txt{font-family:'Yatra One',serif;font-size:0.5rem;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold);opacity:0.45}
+.footer-mantra{font-family:'Tiro Devanagari Hindi',serif;font-style:italic;font-size:0.88rem;color:var(--gold-light);opacity:0.45;margin-top:8px;line-height:1.5}
+
+/* ── REVEAL ANIMATIONS ── */
+.rev{opacity:0;transform:translateY(26px);animation:slideRev 0.75s ease forwards}
+@keyframes slideRev{to{opacity:1;transform:translateY(0)}}
+.rev-l{opacity:0;transform:translateX(-30px);animation:slideRevL 0.75s ease forwards}
+@keyframes slideRevL{to{opacity:1;transform:translateX(0)}}
+.rev-r{opacity:0;transform:translateX(30px);animation:slideRevR 0.75s ease forwards}
+@keyframes slideRevR{to{opacity:1;transform:translateX(0)}}
+.rev-zoom{opacity:0;transform:scale(0.8);animation:zoomRev 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards}
+@keyframes zoomRev{to{opacity:1;transform:scale(1)}}
+
+/* === SHARE STRIP === */
+#shareStrip{
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:rgba(12,4,6,0.96);
+  border-top:1px solid rgba(212,160,23,0.25);
+  backdrop-filter:blur(20px);
+  padding:13px 20px;
+  display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;
+  transform:translateY(100%);animation:stripUp 0.9s 1.8s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+@keyframes stripUp{to{transform:translateY(0)}}
+.strip-lbl{font-family:'Yatra One',serif;font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);opacity:0.7}
+.btn-wa{display:flex;align-items:center;gap:8px;padding:11px 24px;background:#25D366;border:none;border-radius:9px;color:#fff;font-family:'Yatra One',serif;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;text-decoration:none}
+.btn-wa:hover{background:#1ebe5d;transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,0.45)}
+.btn-copy{padding:11px 20px;background:transparent;border:1px solid rgba(212,160,23,0.4);border-radius:9px;color:var(--gold-light);font-family:'Yatra One',serif;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.3s}
+.btn-copy:hover{background:rgba(212,160,23,0.12);border-color:var(--gold);color:var(--gold)}
+
+/* === ERROR === */
+#errMsg{display:none;position:fixed;inset:0;z-index:200;background:var(--deep);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;gap:18px}
+.err-icon{font-size:3.5rem}
+.err-title{font-family:'Yatra One',serif;font-size:1.2rem;color:var(--gold)}
+.err-sub{font-style:italic;color:var(--cream);opacity:0.6;max-width:340px;line-height:1.7}
+
+::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-thumb{background:rgba(212,160,23,0.3);border-radius:2px}
 </style>
 </head>
 <body>
 
-<div id="loading"><div class="load-ring"></div><div class="load-text">Opening Your Invitation</div></div>
-<div id="particles"></div>
-
-<!-- ERROR FALLBACK -->
-<div id="errMsg" style="display:none;flex-direction:column">
-  <div class="err-icon">💌</div>
-  <div class="err-title">Invitation Not Found</div>
-  <div class="err-sub">This link appears to be incomplete or invalid. Please ask the host to share the correct invitation link.</div>
+<div id="bg">
+  <div class="bg-base"></div>
+  <div class="mandala-bg">
+    <svg viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="450" cy="450" r="420" stroke="#D4A017" stroke-width="0.6" opacity="0.6"/>
+      <circle cx="450" cy="450" r="360" stroke="#D4A017" stroke-width="0.4" opacity="0.5"/>
+      <circle cx="450" cy="450" r="300" stroke="#C8102E" stroke-width="0.4" opacity="0.4"/>
+      <circle cx="450" cy="450" r="240" stroke="#D4A017" stroke-width="0.5" opacity="0.5"/>
+      <circle cx="450" cy="450" r="180" stroke="#C8102E" stroke-width="0.4" opacity="0.4"/>
+      <circle cx="450" cy="450" r="120" stroke="#D4A017" stroke-width="0.4" opacity="0.5"/>
+      <circle cx="450" cy="450" r="60"  stroke="#C8102E" stroke-width="0.4" opacity="0.5"/>
+      <line x1="450" y1="30"  x2="450" y2="870" stroke="#D4A017" stroke-width="0.35" opacity="0.3"/>
+      <line x1="30"  y1="450" x2="870" y2="450" stroke="#D4A017" stroke-width="0.35" opacity="0.3"/>
+      <line x1="150" y1="150" x2="750" y2="750" stroke="#D4A017" stroke-width="0.35" opacity="0.25"/>
+      <line x1="750" y1="150" x2="150" y2="750" stroke="#D4A017" stroke-width="0.35" opacity="0.25"/>
+      <g opacity="0.45">
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(30 450 450)"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(60 450 450)"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(90 450 450)"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(120 450 450)"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(150 450 450)"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(180 450 450)"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(210 450 450)"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(240 450 450)"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(270 450 450)"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(300 450 450)"/>
+        <ellipse cx="450" cy="180" rx="20" ry="35" stroke="#D4A017" stroke-width="0.7" transform="rotate(330 450 450)"/>
+      </g>
+      <text x="450" y="475" text-anchor="middle" font-size="90" fill="#D4A017" opacity="0.9" font-family="serif">ॐ</text>
+    </svg>
+  </div>
 </div>
 
-<!-- ENVELOPE COVER (shown before opening) -->
+<div id="loading"><div class="load-om">ॐ</div><div class="load-ring"></div><div class="load-txt">Opening Sacred Invitation</div></div>
+<div id="particles"></div>
+
+<!-- ERROR -->
+<div id="errMsg" style="display:none">
+  <div class="err-icon">🪔</div>
+  <div class="err-title">Invitation Not Found</div>
+  <div class="err-sub">This link appears to be incomplete. Please ask the host to share the correct invitation link.</div>
+</div>
+
+<!-- ENVELOPE COVER -->
 <div id="cover" onclick="openInvitation()">
-  <div class="env-wrap">
+  <div class="env-outer">
     <div class="env-body">
-      <div class="co tl"><svg viewBox="0 0 52 52" fill="none"><path d="M2 2L2 26M2 2L26 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="2" cy="2" r="2.5" fill="#C9A84C" opacity="0.8"/></svg></div>
-      <div class="co tr"><svg viewBox="0 0 52 52" fill="none"><path d="M2 2L2 26M2 2L26 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="2" cy="2" r="2.5" fill="#C9A84C" opacity="0.8"/></svg></div>
-      <div class="co bl"><svg viewBox="0 0 52 52" fill="none"><path d="M2 2L2 26M2 2L26 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="2" cy="2" r="2.5" fill="#C9A84C" opacity="0.8"/></svg></div>
-      <div class="co br"><svg viewBox="0 0 52 52" fill="none"><path d="M2 2L2 26M2 2L26 2" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/><circle cx="2" cy="2" r="2.5" fill="#C9A84C" opacity="0.8"/></svg></div>
-      <div class="env-to">You are invited</div>
-      <div class="env-heart">💌</div>
-      <div class="env-div" style="width:100px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px 0;"></div>
-      <div class="env-names-preview" id="coverNames">A &amp; B</div>
-      <div class="env-sub" style="margin-top:10px;">Wedding Celebration</div>
+      <div class="ef1"></div><div class="ef2"></div><div class="ef3"></div>
+      <div class="env-top-banner"><span>You Are Cordially Invited</span></div>
+      <div class="env-bottom-banner"></div>
+      <span class="eco tl">🪷</span><span class="eco tr">🪷</span>
+      <span class="eco bl">🌺</span><span class="eco br">🌺</span>
+      <div class="env-kalash">🏺</div>
+      <div class="env-om">ॐ शुभ विवाह</div>
+      <div class="env-line"></div>
+      <div class="env-heading">Hindu Wedding<br>Invitation</div>
+      <div class="env-names" id="coverNamesV">Dulha &amp; Dulhan</div>
+      <div class="env-line"></div>
+      <div class="env-sub">Shubh Vivah • Shubh Muhurat</div>
       <div class="env-cta">✦ Tap to Open ✦</div>
     </div>
   </div>
-  <div class="cover-caption">Your Invitation Awaits</div>
-  <div class="cover-sub">Tap the envelope to reveal</div>
+  <div class="cover-lbl">Your Invitation Awaits</div>
+  <div class="cover-slbl">Tap the envelope to reveal</div>
 </div>
 
 <!-- INVITATION -->
-<div id="app" style="display:none;">
-  <div class="inv">
-    <div class="f1"></div><div class="f2"></div>
+<div id="app" style="display:none">
+  <div class="inv-wrap">
+    <div class="inv" id="invMain">
+      <div class="if1"></div><div class="if2"></div><div class="if3"></div>
 
-    <div class="bismillah reveal" style="animation-delay:0.1s">﷽ Bismillahir Rahmanir Rahim</div>
+      <!-- HEADER -->
+      <div class="inv-header">
+        <span class="hlotus tl">🪷</span><span class="hlotus tr">🪷</span>
+        <span class="h-om rev" style="animation-delay:0.1s">ॐ</span>
+        <span class="h-sub rev" style="animation-delay:0.18s">Shubh Vivah — Mangal Vivah</span>
+        <div class="h-sanskrit rev" style="animation-delay:0.25s">
+          सर्वे भवन्तु सुखिनः • May all be happy<br>
+          <span style="font-size:0.85rem;opacity:0.7">~ With the blessings of the Almighty ~</span>
+        </div>
+        <div class="h-divider rev" style="animation-delay:0.3s"><span></span><em>🌸</em><span></span></div>
+        <div class="h-ceremony rev" style="animation-delay:0.38s">
+          <span class="h-ceremony-icon" id="vCerIcon">🔥</span>
+          <span class="h-ceremony-text" id="vCerText">Vivah Sanskar</span>
+        </div>
+      </div>
 
-    <div class="reveal" style="animation-delay:0.2s">
-      <div class="initials" id="vInitials">A &amp; B</div>
-      <span class="inv-and">together with their families</span>
+      <!-- COUPLE -->
+      <div class="couple-section">
+        <div class="couple-intro rev" style="animation-delay:0.45s">Together with their families, joyfully invite you to</div>
+        <div class="couple-box rev" style="animation-delay:0.52s">
+          <div class="person-side rev-l" style="animation-delay:0.58s">
+            <span class="person-label">Groom (Dulha)</span>
+            <div class="person-name groom" id="vGroomName">Arjun Sharma</div>
+            <div class="person-family" id="vGroomFamily"></div>
+          </div>
+          <div class="couple-center rev-zoom" style="animation-delay:0.64s">
+            <span class="c-heart">❤️</span>
+            <span class="c-and">&amp;</span>
+          </div>
+          <div class="person-side rev-r" style="animation-delay:0.58s">
+            <span class="person-label">Bride (Dulhan)</span>
+            <div class="person-name bride" id="vBrideName">Priya Verma</div>
+            <div class="person-family" id="vBrideFamily"></div>
+          </div>
+        </div>
+        <div class="hr-gem rev" style="animation-delay:0.7s">
+          <span></span><div class="dot" style="width:5px;height:5px;border-radius:50%;background:var(--saffron);opacity:0.7"></div>
+          <div class="diamond" style="width:10px;height:10px;border:1.5px solid var(--gold);transform:rotate(45deg);background:linear-gradient(135deg,#8B6914,var(--gold))"></div>
+          <span class="c-heart" style="font-size:1rem">🪔</span>
+          <div class="diamond" style="width:10px;height:10px;border:1.5px solid var(--gold);transform:rotate(45deg);background:linear-gradient(135deg,#8B6914,var(--gold))"></div>
+          <div class="dot" style="width:5px;height:5px;border-radius:50%;background:var(--saffron);opacity:0.7"></div>
+          <span></span>
+        </div>
+      </div>
+
+      <!-- AUSPICIOUS TEXT -->
+      <div class="auspicious rev" style="animation-delay:0.76s">
+        <div class="aus-text">Your gracious presence, love, and blessings are warmly requested to witness the sacred union and celebrate this auspicious occasion with us.</div>
+      </div>
+
+      <div class="shimmer-div rev" style="animation-delay:0.82s"></div>
+
+      <!-- DATE -->
+      <div class="date-section rev" style="animation-delay:0.88s">
+        <span class="ds-icon">🌅</span>
+        <span class="ds-label">Shubh Muhurat — Auspicious Date &amp; Time</span>
+        <div class="ds-date" id="vDate">Monday, 25 October 2025</div>
+        <div class="ds-time" id="vTime">Muhurat begins at 6:00 AM</div>
+        <div class="muhurat-badge rev" style="animation-delay:0.92s">
+          <span>🔱</span> Panchang-approved Muhurat
+        </div>
+      </div>
+
+      <div class="shimmer-div rev" style="animation-delay:0.95s"></div>
+
+      <!-- VENUE -->
+      <div class="venue-section rev" style="animation-delay:1.0s">
+        <div class="venue-card">
+          <span class="vc-icon">🏛️</span>
+          <span class="vc-label">Venue — Vivah Sthal</span>
+          <div class="vc-name" id="vVenueName">Shri Ram Vivah Mandap</div>
+          <div class="vc-addr" id="vVenueAddr">Guwahati, Assam</div>
+        </div>
+      </div>
+
+      <!-- CONTACTS -->
+      <div class="contact-section rev" id="vContacts" style="animation-delay:1.06s"></div>
+
+      <div class="shimmer-div rev" style="animation-delay:1.1s"></div>
+
+      <!-- BLESSING -->
+      <div class="blessing-section rev" style="animation-delay:1.15s">
+        <div class="bs-text" id="vBlessing">
+          Saath pheron ka pavitra bandhan, saat janmon ka sachcha pyaar.<br>
+          Aap sabhi ka ashirwad chahte hain.
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="inv-footer rev" style="animation-delay:1.2s">
+        <span class="footer-swastika">🕉️</span>
+        <div class="footer-txt">✦ Shubh Vivah • Mangal Kaamnayen ✦</div>
+        <div class="footer-mantra">विवाहे सुखं सम्पद्यते<br>In marriage, all happiness unfolds</div>
+      </div>
     </div>
-
-    <div class="shimmer reveal" style="animation-delay:0.3s"></div>
-    <div class="together reveal" style="animation-delay:0.35s">joyfully invite you to celebrate the wedding of</div>
-
-    <div class="reveal" style="animation-delay:0.45s; margin:10px 0 20px;">
-      <div class="groom-name" id="vGroomName"></div>
-      <div class="conn">son of the esteemed family</div>
-      <div class="name-sep">— with —</div>
-      <div class="bride-name" id="vBrideName"></div>
-      <div class="conn">daughter of the esteemed family</div>
-    </div>
-
-    <div class="hr reveal" style="animation-delay:0.55s"><span></span><div class="gem"></div><span></span></div>
-
-    <div class="request reveal" style="animation-delay:0.6s">Your gracious presence and heartfelt blessings<br>are warmly requested at the Nikah &amp; Walima ceremony</div>
-
-    <div class="date-section reveal" style="animation-delay:0.7s">
-      <div class="section-label">Date &amp; Time</div>
-      <div class="date-big" id="vDate"></div>
-      <div class="time-text" id="vTime"></div>
-    </div>
-
-    <div class="venue-box reveal" style="animation-delay:0.8s">
-      <div class="section-label">Venue</div>
-      <div class="venue-name" id="vVenueName"></div>
-      <div class="venue-addr" id="vVenueAddr"></div>
-    </div>
-
-    <div class="contacts reveal" id="vContacts" style="animation-delay:0.9s"></div>
-
-    <div class="hr reveal" style="animation-delay:0.95s"><span></span><div class="gem"></div><span></span></div>
-
-    <div class="blessing reveal" id="vBlessing" style="animation-delay:1.0s"></div>
-
-    <div class="footer-note reveal" style="animation-delay:1.1s">✦ With love &amp; blessings ✦</div>
   </div>
 </div>
 
-<!-- SHARE STRIP (read-only guests can still share) -->
+<!-- SHARE STRIP -->
 <div id="shareStrip">
-  <span class="strip-label">Share this invitation</span>
+  <span class="strip-lbl">🪷 Share this invitation</span>
   <a id="waShareBtn" class="btn-wa" href="#" target="_blank">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     Share on WhatsApp
   </a>
-  <button class="btn-copy" onclick="copyPageLink()">Copy Link</button>
+  <button class="btn-copy" onclick="copyPageLink()">📋 Copy Link</button>
 </div>
 
 <script>
 /* PARTICLES */
 (function(){
   const c=document.getElementById('particles');
-  const cols=['#C9A84C','#E8D5A3','#C4737A','#E8B4B8','#8B6914'];
-  for(let i=0;i<28;i++){
-    const p=document.createElement('div'); p.className='petal';
-    p.style.cssText=`left:${Math.random()*100}%;background:${cols[i%cols.length]};width:${4+Math.random()*8}px;height:${4+Math.random()*8}px;animation-duration:${9+Math.random()*13}s;animation-delay:${-Math.random()*22}s;border-radius:${Math.random()>.5?'50% 0':'50%'};`;
+  const cols=['#FF8C00','#FF6B00','#FFD700','#FF4500','#FFA500','#FF9A3C','#C8102E','#FFB347'];
+  const sparkCols=['#FFD700','#FFF8EE','#FF9A3C','#FFB3BA'];
+  // Marigold petals & diyas
+  for(let i=0;i<45;i++){
+    const p=document.createElement('div');
+    const isMpetal=Math.random()>0.35;
+    p.className=isMpetal?'mpetal':'diya';
+    const color=cols[Math.floor(Math.random()*cols.length)];
+    if(isMpetal){
+      const s=5+Math.random()*11;
+      p.style.cssText=`left:${Math.random()*100}%;top:0;background:${color};width:${s}px;height:${s*0.7}px;animation-duration:${11+Math.random()*13}s;animation-delay:${-Math.random()*25}s;`;
+    } else {
+      p.style.cssText=`left:${Math.random()*100}%;bottom:0;background:${color};box-shadow:0 0 8px ${color},0 0 16px ${color};width:5px;height:5px;animation-duration:${8+Math.random()*10}s;animation-delay:${-Math.random()*18}s;`;
+    }
     c.appendChild(p);
+  }
+  // Sparkles
+  for(let i=0;i<20;i++){
+    const s=document.createElement('div');
+    s.className='spark';
+    const sc=sparkCols[Math.floor(Math.random()*sparkCols.length)];
+    const sz=2+Math.random()*4;
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;border-radius:50%;background:${sc};box-shadow:0 0 6px ${sc};animation-duration:${2+Math.random()*4}s;animation-delay:${Math.random()*5}s;`;
+    c.appendChild(s);
   }
 })();
 
-/* PARSE DATA */
-let DATA = null;
+/* LOADING */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const l=document.getElementById('loading');
+    l.style.opacity='0';
+    setTimeout(()=>{l.style.display='none';parseHash();},900);
+  },1300);
+});
+
+/* DATA */
+let DATA=null;
 
 function parseHash(){
-  const hash = window.location.hash.slice(1);
-  if(!hash){ showError(); return; }
-  try {
-    DATA = JSON.parse(decodeURIComponent(escape(atob(hash))));
-  } catch(e){ showError(); return; }
+  const hash=window.location.hash.slice(1);
+  if(!hash){showError();return;}
+  try{DATA=JSON.parse(decodeURIComponent(escape(atob(hash))));}
+  catch(e){showError();return;}
   renderCover();
   setupShare();
 }
@@ -228,41 +481,43 @@ function showError(){
 }
 
 function renderCover(){
-  const g = DATA.g || 'Groom';
-  const b = DATA.b || 'Bride';
-  document.getElementById('coverNames').textContent = g + ' & ' + b;
+  const g=DATA.g||'Dulha',b=DATA.b||'Dulhan';
+  document.getElementById('coverNamesV').textContent=g+' & '+b;
 }
 
 function openInvitation(){
-  const cover = document.getElementById('cover');
-  cover.style.transition = 'opacity 0.6s, transform 0.6s';
-  cover.style.opacity = '0';
-  cover.style.transform = 'rotateX(20deg) scale(0.8) translateY(-40px)';
+  const cover=document.getElementById('cover');
+  cover.style.transition='opacity 0.7s,transform 0.7s';
+  cover.style.opacity='0';
+  cover.style.transform='rotateX(18deg) scale(0.82) translateY(-30px)';
   setTimeout(()=>{
-    cover.style.display = 'none';
+    cover.style.display='none';
     renderInvitation();
-    document.getElementById('app').style.display = 'flex';
-  }, 550);
+    document.getElementById('app').style.display='flex';
+  },600);
 }
 
-function renderInvitation(){
-  const d = DATA;
-  const g = d.g || 'Groom Name';
-  const b = d.b || 'Bride Name';
-  document.getElementById('vInitials').innerHTML = g.charAt(0).toUpperCase() + ' &amp; ' + b.charAt(0).toUpperCase();
-  document.getElementById('vGroomName').textContent = g;
-  document.getElementById('vBrideName').textContent = b;
-  document.getElementById('vDate').textContent = formatDate(d.d);
-  document.getElementById('vTime').textContent = formatTime(d.t);
-  document.getElementById('vVenueName').textContent = d.vn || 'Venue';
-  document.getElementById('vVenueAddr').textContent = d.va || '';
-  const blessing = d.msg || 'With the blessings of Allah, we begin a new chapter. Your love and presence mean the world to us.';
-  document.getElementById('vBlessing').innerHTML = blessing.replace(/\n/g,'<br>');
+const cerIcons={'Vivah Sanskar':'🔥','Saptapadi':'👣','Haldi & Sangeet':'🌿','Baraat & Reception':'🎺'};
 
-  const contacts = document.getElementById('vContacts');
-  contacts.innerHTML = '';
-  if(d.p1) contacts.innerHTML += chipHTML(d.p1);
-  if(d.p2) contacts.innerHTML += chipHTML(d.p2);
+function renderInvitation(){
+  const d=DATA;
+  document.getElementById('vGroomName').textContent=d.g||'Groom';
+  document.getElementById('vBrideName').textContent=d.b||'Bride';
+  document.getElementById('vGroomFamily').textContent=d.gf||'';
+  document.getElementById('vBrideFamily').textContent=d.bf||'';
+  document.getElementById('vDate').textContent=formatDate(d.d);
+  document.getElementById('vTime').textContent=formatTime(d.t);
+  document.getElementById('vVenueName').textContent=d.vn||'Venue';
+  document.getElementById('vVenueAddr').textContent=d.va||'';
+  const cer=d.cer||'Vivah Sanskar';
+  document.getElementById('vCerText').textContent=cer;
+  document.getElementById('vCerIcon').textContent=cerIcons[cer]||'🔥';
+  const bl=d.msg||'Saath pheron ka pavitra bandhan, saat janmon ka sachcha pyaar.\nAap sabhi ka ashirwad chahte hain.';
+  document.getElementById('vBlessing').innerHTML=bl.replace(/\n/g,'<br>');
+  const cc=document.getElementById('vContacts');
+  cc.innerHTML='';
+  if(d.p1)cc.innerHTML+=chipHTML(d.p1);
+  if(d.p2)cc.innerHTML+=chipHTML(d.p2);
 }
 
 function chipHTML(num){
@@ -270,62 +525,55 @@ function chipHTML(num){
 }
 
 function formatDate(d){
-  if(!d) return 'Date to be announced';
-  try{ const dt=new Date(d+'T00:00:00'); return dt.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}); } catch(e){ return d; }
+  if(!d)return 'Date to be announced';
+  try{const dt=new Date(d+'T00:00:00');return dt.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});}catch(e){return d;}
 }
 function formatTime(t){
-  if(!t) return 'Time to be announced';
-  try{ const[h,m]=t.split(':'); const hr=parseInt(h); return `Ceremony begins at ${hr%12||12}:${m} ${hr>=12?'PM':'AM'}`; } catch(e){ return t; }
+  if(!t)return 'Muhurat time to be announced';
+  try{const[h,m]=t.split(':');const hr=parseInt(h);return `Muhurat begins at ${hr%12||12}:${m} ${hr>=12?'PM':'AM'}`;}catch(e){return t;}
 }
 
 function setupShare(){
-  const pageURL = window.location.href;
-  const d = DATA || {};
-  const waText = encodeURIComponent(
-    `💍 *Wedding Invitation*\n\n` +
-    `*${d.g||'Groom'}* weds *${d.b||'Bride'}*\n\n` +
-    `📅 ${formatDate(d.d)}\n` +
-    `⏰ ${formatTime(d.t)}\n` +
-    `📍 ${d.vn||''}, ${d.va||''}\n` +
-    (d.p1 ? `📞 ${d.p1}\n` : '') +
-    `\nView beautiful invitation 👇\n${pageURL}`
+  const url=window.location.href;
+  const d=DATA||{};
+  const waText=encodeURIComponent(
+    `🪷 *शुभ विवाह — Hindu Wedding Invitation* 🪷\n\n`+
+    `*${d.g||'Groom'}* weds *${d.b||'Bride'}*\n\n`+
+    `🔥 ${d.cer||'Vivah Sanskar'}\n`+
+    `📅 ${formatDate(d.d)}\n`+
+    `⏰ ${formatTime(d.t)}\n`+
+    `📍 ${d.vn||''}, ${d.va||''}\n`+
+    (d.p1?`📞 ${d.p1}\n`:``)+
+    `\n🪔 View beautiful invitation 👇\n${url}`
   );
-  document.getElementById('waShareBtn').href = `https://wa.me/?text=${waText}`;
+  document.getElementById('waShareBtn').href=`https://wa.me/?text=${waText}`;
 }
 
 function copyPageLink(){
   navigator.clipboard.writeText(window.location.href).then(()=>{
-    const btn = document.querySelector('.btn-copy');
-    btn.textContent = '✓ Copied!';
-    btn.style.color = 'var(--gold)';
-    setTimeout(()=>{ btn.textContent='Copy Link'; btn.style.color=''; }, 2000);
+    const btn=document.querySelector('.btn-copy');
+    const old=btn.textContent;
+    btn.textContent='✓ Copied!';
+    btn.style.color='var(--gold-bright)';
+    setTimeout(()=>{btn.textContent=old;btn.style.color='';},2200);
   });
 }
 
-/* TILT */
+/* 3D TILT */
 window.addEventListener('DOMContentLoaded',()=>{
-  const inv = document.querySelector('.inv');
-  if(!inv) return;
+  const inv=document.getElementById('invMain');
+  if(!inv)return;
   inv.addEventListener('mousemove',e=>{
     const r=inv.getBoundingClientRect();
     const x=(e.clientX-r.left)/r.width-0.5;
     const y=(e.clientY-r.top)/r.height-0.5;
-    inv.style.transform=`perspective(1000px) rotateY(${x*6}deg) rotateX(${-y*6}deg) scale(1.01)`;
-    inv.style.transition='transform 0.1s';
+    inv.style.transform=`perspective(1100px) rotateY(${x*5}deg) rotateX(${-y*5}deg) scale(1.012)`;
+    inv.style.transition='transform 0.08s';
   });
   inv.addEventListener('mouseleave',()=>{
     inv.style.transform='';
-    inv.style.transition='transform 0.6s cubic-bezier(0.34,1.56,0.64,1)';
+    inv.style.transition='transform 0.7s cubic-bezier(0.34,1.4,0.64,1)';
   });
-});
-
-/* LOADING + INIT */
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    const l=document.getElementById('loading');
-    l.style.opacity='0';
-    setTimeout(()=>{l.style.display='none'; parseHash();},800);
-  },1000);
 });
 </script>
 </body>
